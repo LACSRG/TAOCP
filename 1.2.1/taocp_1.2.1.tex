@@ -1,0 +1,204 @@
+\documentclass{amsart}
+\usepackage{taocp}
+
+\title{The Art Of Computer Programming\\
+  Vol 1: Fundamental Algorithms\\
+  Ch 1: Basic Concepts\\
+  Sec 1.2.1: Mathematical Induction}
+\date{Saturday, 2016-08-06}
+
+\begin{document}
+\maketitle
+
+% Problem 1
+\begin{problem}{[}05{]}
+  Explain how to modify the idea of proof by mathematical induction, in case we
+  want to prove some statement \(P(n)\) for all \emph{nonnegative} integers
+  --- that is, for \(n = 0, 1, 2, \dots\) instead of for \(n=1,2,3,\dots\).
+\end{problem}
+
+\begin{solution}
+  Change step (a) to prove that \(P(0)\) holds. Step (b) remains unchanged.
+\end{solution}
+
+% Problem 2
+\begin{problem}{[}15{]}
+  There must be something wrong with the following proof.  What is it?
+
+  \begin{theorem}
+    Let \(a\) be any positive number.  For all positive integers \(n\) we have
+    \(a ^{n - 1} = 1\).
+  \end{theorem}
+  \begin{proof}
+    If \(n = 1\), \(a^{n-1}=a^{1-1}=a^0=1\). And by induction, assuming that the
+    theorem is true for \(1, 2, \dots, n\), we have
+    \begin{equation*}
+      a^{(n+1)-1} = a^n = \frac{a^{n-1} \times a^{n-1}}{a^{(n-1)-1}} =
+        \frac{1 \time 1}{1} = 1;
+    \end{equation*}
+    so the theorem is true for \(n+1\) as well.
+  \end{proof}
+\end{problem}
+
+\begin{solution}
+  The proof of the inductive step assumes \(P(1)\), which has not been proven.
+  Instead, the base step proved \(P(0)\). Therefore there is no available
+  starting point for applying the inductive step.
+\end{solution}
+
+% Problem 3
+\begin{problem}{[}18{]}
+  The following proof by induction seems correct, but for some reason the
+  equation for \(n = 6\) gives \(\frac{1}{2} + \frac{1}{6} + \frac{1}{12} +
+  \frac{1}{20} + \frac{1}{30} = \frac{5}{6}\) on the left hand side, and
+  \(\frac{3}{2} - \frac{1}{6} = \frac{4}{3}\) on the right-hand side. Can you
+  find a mistake?
+  \begin{theorem}
+    \begin{equation*}
+      \frac{1}{1 \times 2} + \frac{1}{2 \times 3} + \cdots +
+        \frac{1}{(n-1) \times n} = \frac{3}{2} - \frac{1}{n}.
+    \end{equation*}
+  \end{theorem}
+  \begin{proof}
+    We use induction on \(n\). For \(n = 1\), clearly \(\frac{3}{2} -
+      \frac{1}{n} = \frac{1}{1 \times 2}\); and, assuming that the theorem is
+      true for \(n\),
+    \begin{align*}
+      &\frac{1}{1\times2} + \cdots + \frac{1}{(n - 1) \times n} +
+        \frac{1}{n \times (n+1)} \\
+      &= \frac{3}{2} - \frac{1}{n} + \frac{1}{n(n+1)} = \frac{3}{2} -
+        \frac{1}{n} + \left(\frac{1}{n} - \frac{1}{n+1}\right) = \frac{3}{2} -
+        \frac{1}{n+1}.
+    \end{align*}
+  \end{proof}
+\end{problem}
+
+\begin{solution}
+  The proof of \(P(1)\) is invalid, since the term \(\frac{1}{1\times2}\)
+  corresponds to \(n=2\) rather than to \(n=1\).
+\end{solution}
+
+% Problem 4
+\begin{problem}{[}20{]}
+  Prove that, in addition to Eq. (3), Fibonacci numbers satisfy \(F_n \geq
+  \phi^{n-2}\).
+\end{problem}
+
+\begin{solution}
+  \begin{align*}
+    F_1 = 1 &\geq \phi^{-1} \\
+    F_2 = 1 &\geq 1 = \phi^0 \\
+    F_n = F_{n-1} + F_{n-2} &\geq \phi^{n-3} + \phi^{n-4} = (\phi + 1)\phi^{n-4} = \phi^{n-2} \qed
+  \end{align*}
+\end{solution}
+
+% Problem 5
+\begin{problem}{[}21{]}
+  A \emph{prime number} is an integer \(> 1\) that has no exact divisors other
+  than 1 and itself. Using this definition and mathematical induction, prove
+  that every integer \(> 1\) may be written as a product of one or more prime
+  numbers. (A prime number is considered to be the ``product" of a single prime,
+  namely itself.)
+\end{problem}
+
+\begin{solution}
+  Since 2 is prime, it may trivially be written as a product of just one prime,
+  namely 2 = 2.
+
+  Let \(n > 2\) be an integer. If \(n\) is prime, then it can trivially be
+  written as a product of just one prime, namely \(n = n\). Otherwise,
+  \(\exists m,d \in \mathbb{N}\) such that \(n = m * d\). In particular, in
+  this case we have \(m > 1\) and \(d > 1\) which implies \(m < n\) and
+  \(d < n\). It follows from the inductive hypothesis that \(n=m*d\) can be
+  expanded into a product of one or more primes.
+\end{solution}
+
+% Problem 6
+\begin{problem}{[}20{]}
+  Prove that if Eqs. (6) hold just before step E4, they hold afterwards also.
+\end{problem}
+
+\begin{solution}
+  \begin{align*}
+    [a,b,d/a',b',c](a'm + b'n = c) &\equiv & am + bn &= d \\
+    [a'-qa,b'-qb,r/a,b,d](am + bn = d) &\equiv & (a'-qa)m + (b'-qb)n &= r \\
+    & & a'm + b'n &= q(am + bn) + r \\
+    & & &= qd + r \\
+    & & &= c \qed
+  \end{align*}
+\end{solution}
+
+% Problem 7
+\begin{problem}{[}23{]}
+  Formulate and prove by induction a rule for the sums \(1^2, 2^2 - 1^2, 3^2 -
+  2^2 + 1^2, 4^2 - 3^2 + 2^2 - 1^2, 5^2 - 4^2 + 3^2 - 2^2 + 1^2\), etc.
+\end{problem}
+
+\begin{solution}
+  \begin{theorem}
+    \begin{align*}
+      \sum_{i=1}^n (-1)^{(n\%2)+1}i^2 &=
+        \sum_{i=1}^{\frac{n}{2}} 2(2i)-1 = 2n(n+1) - \frac{n}{2} = 2n^2 + \frac{3}{2}n & &\textup{\(n\) is even}\\
+      \sum_{i=1}^n (-1)^{(n\%2)+1}i^2 &=
+        \sum_{i=1}^{\frac{n+1}{2}} 2(2i-1)-1 = 2n(n+1) - \frac{3}{2}(n+1) = 2n^2 + \frac{n}{2} - \frac{3}{2} & &\textup{\(n\) is odd} \\
+    \end{align*}
+  \end{theorem}
+\end{solution}
+
+% Problem k
+\begin{problem}{[}{]}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+% Problem k
+\begin{problem}{[}{]}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+% Problem k
+\begin{problem}{[}{]}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+% Problem k
+\begin{problem}{[}{]}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+% Problem k
+\begin{problem}{[}{]}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+% Problem k
+\begin{problem}{[}{]}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+% Problem k
+\begin{problem}{[}{]}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+% Problem k
+\begin{problem}{[}{]}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+\end{document}

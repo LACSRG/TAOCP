@@ -1,0 +1,189 @@
+\documentclass{amsart}
+\usepackage{taocp}
+
+\title{The Art Of Computer Programming\\Vol 1: Fundamental Algorithms\\Ch 1: Basic Concepts\\Sec 1.1: Algorithms}
+\date{Sunday, 2016-07-31}
+
+\begin{document}
+\maketitle
+
+% Problem 1
+\begin{problem}{[}10{]}
+  The text showed how to interchange the values of variables \(m\) and \(n\),
+  using the replacement notation, by setting \(t \gets m\), \(m \gets n\),
+  \(n \gets t\).  Show how the values of \emph{four} variables
+  \((a, b, c, d)\) can be rearranged to \((b, c, d, a)\) by a sequence of
+  replacements.  In other words, the new value of \(a\) is to be the original
+  value of \(b\), etc.  Try to use the minimum number of replacements.
+\end{problem}
+
+\begin{solution}
+  \(t \gets a\), \(a \gets b\), \(b \gets c\), \(c \gets d\), \(d \gets t\).
+\end{solution}
+
+% Problem 2
+\begin{problem} {[}15{]}
+  Prove that \(m\) is always greater than \(n\) at the beginning of step E1,
+  except possibly the first time this step occurs.
+\end{problem}
+
+\begin{solution}
+  If \(m \leq n\) at the beginning of step E1 and \(r \neq 0\) after step E1,
+  then step E3 sets \(m \gets n\), \(n \gets r\).  By definition, \(n > r\), so
+  \(m > n\) every time at the beginning of step E1 after the first time.
+\end{solution}
+
+% Problem 3
+\begin{problem}{[}20{]}
+  Change Algorithm E (for the sake of efficiency) so that all trivial
+  replacement operations such as ``\(m \gets n\)" are avoided.  Write this new
+  algorithm in the style of Algorithm E, and call it Algorithm F.
+\end{problem}
+
+\begin{solution}
+\
+  \algbegin Algorithm F (Euclid's algorithm without trivial replacements).  Given two
+  positive integers \(m\) and \(n\), find their \emph{greatest common divisor},
+  that is, the largest positive integer that evenly divides both \(m\) and
+  \(n\).
+  \algstep F1. [Find remainder 1.] Divide \(m\) by \(n\) and let \(r_1\) be the
+  remainder.  (We will have \(0 \leq r_1 < n\).) \\
+  \algstep F2. [Is it zero?] If \(r_1 = 0\), the algorithm terminates; \(n\) is the answer. \\
+  \algstep F3. [Reduce 1.] Set \(m \gets r_1\). \\
+  \algstep F4. [Find remainder 2.] Divide \(n\) by \(m\) and let \(r_2\) be the
+  remainder.  (We will have \(0 \leq r_2 < m\).) \\
+  \algstep F5. [Is it zero?] If \(r_2 = 0\), the algorithm terminates; \(m\) is the answer. \\
+  \algstep F6. [Reduce 2.] Set \(n \gets r_2\), and go back to step F1. \slug
+\end{solution}
+
+% Problem 4
+\begin{problem}{[}16{]}
+  What is the greatest common divisor of 2166 and 6099?
+\end{problem}
+
+\begin{solution}
+\
+\begin{align*}
+  &m = 6099, n = 2166, r = 1767 \\
+  &m = 2166, n = 1767, r = 399 \\
+  &m = 1767, n = 399, r = 171 \\
+  &m = 399, n = 171, r = 57 \\
+  &m = 171, n = 57, r = 0 \\
+  &\textup{gcd}(6099, 2166) = 57
+\end{align*}
+\end{solution}
+
+% Problem 5
+\begin{problem}{[}12{]}
+  Show that the ``Procedure for Reading This Set of Books"
+\end{problem}
+
+\begin{solution}
+\
+The procedure fails to have these features:
+\begin{enumerate}
+  \item Finiteness: Step 18, which is reached upon completion of reading the
+    book instructs the reader to start over at the beginning (step 3).
+  \item Definiteness: Steps like ``5. Interesting?" and ``14. Tired?"
+    are not precisely defined.
+  \item Effectiveness: It is not clear that ``12. Work exercises" can be
+    completed mechanically with pencil and paper, particularly because some
+    exercises have no known solutions and hence may not have any solutions at
+    all.
+\end{enumerate}
+The procedure does have these features:
+\begin{enumerate}
+  \item Input: The text itself to be read.
+  \item Output: Worked exercises.
+\end{enumerate}
+\end{solution}
+
+% Problem 6
+\begin{problem}{[}20{]}
+  What is \(T_5\), the average number of times step E1 is performed when
+  \(n = 5\)?
+\end{problem}
+
+\begin{solution}
+\
+\begin{align*}
+  &(1,5,1) \to (5,1,0) \\
+  &(2,5,2) \to (5,2,1) \to (2,1,0) \\
+  &(3,5,3) \to (5,3,2) \to (3,2,1) \to (2,1,0) \\
+  &(4,5,4) \to (5,4,1) \to (4,1,0) \\
+  &(5,5,0) \\
+  &T_5 = 13
+\end{align*}
+\end{solution}
+
+% Problem 7
+\begin{problem}{[}M21{]}
+  Suppose that \(m\) is known and \(n\) is allowed to range over all positive
+  integers; let \(U_m\) be the average number of times that step E1 is executed
+  in Algorithm E.  Show that \(U_m\) is well defined.  Is \(U_m\) in any way
+  related to \(T_m\)?
+\end{problem}
+
+\begin{solution}
+\
+For \(n > m\), the number of times depends only on \(\mod(n, m)\) and it
+suffices to consider only \(n=1,\dots,m\), leading to the same analysis as
+above. However, and extra intial step was incurred to swap \(m\) and \(n\),
+so we obtain \(U_m = T_m + 1\).
+\end{solution}
+
+% Problem 8
+\begin{problem}{[}M25{]}
+  Give an ``effective" formal algorithm for computing the greatest common
+  divisor of positive integers \(m\) and \(n\), by specifying
+  \(\theta_j, \phi_j, a_j, b_j\) as in Eqs. (3).  Let the input be represented
+  by the string \(a^mb^n\), that is, \(m\) \(a\)'s followed by \(n\) \(b\)'s.
+  Try to make your solution as simple as possible.  [\emph{Hint}: Use
+  Algorithm E, but instead of division in step E1, set
+  \(r \gets |m-n|, n \gets \min(m,n)\).]
+\end{problem}
+
+\begin{solution}
+  \begin{align*}
+    N &= 6 \\
+    &j & \theta_j &\to \phi_j & &a_j & &b_j \\
+    &0 & ab       &\to c      & &1   & &2 \\
+    &1 & cb       &\to bc     & &1   & &0 \\
+    &2 & b        &\to b      & &4   & &3 \\
+    &3 & a        &\to a      & &5   & &6 \\
+    &4 & b        &\to a      & &4   & &5 \\
+    &5 & c        &\to b      & &5   & &0
+  \end{align*}
+\end{solution}
+
+% Problem 9
+\begin{problem}{[}M30{]}
+  Suppose that \(C_1 = (Q_1, I_1, \Omega_1, f_1)\) and
+  \(C_2 = (Q_2, I_2, \Omega_2, f_2)\) are computational methods. For example,
+  \(C_1\) might stand for Algorithm E as in Eqs. (2), except that \(m\) and
+  \(n\) are restricted in magnitude, and \(C_2\) might stand for a computer
+  program implementation of Algorithm E. (Thus \(Q_2\) might be the set of all
+  states of the machine, i.e., all ossible configurations of itsmemory and
+  registers; \(f_2\) might be the definition of single machine actions; and
+  \(I_2\) might bethe initial state, including the program for determining the
+  greatest common divisor as well as the values of \(m\) and \(n\).)
+
+  Formulate a set-theoretic definition for the concept ``\(C_2\) is a
+  representation of \(C_1\)" or ``\(C_2\) simulates \(C_1\)". This is to mean
+  intuitively that any computation sequence of \(C_1\) is mimicked by \(C_2\),
+  except that \(C_2\) might take more steps in which to do the computation, and
+  it might retain more information in its states. (We thereby obtain a rigorous
+  interpretation of the statement, ``Program \(X\) is an implementation of
+  Algorithm \(Y\)".)
+\end{problem}
+
+\begin{solution}
+\begin{definition}
+  \(C_2\) simulates \(C_1\) if and only if
+  \(\exists g : I_1 \to I_2, h : Q_2 \to Q_1\) such that \(\forall q_0 \in I_1\)
+  \(\exists {k_i^{q_0} : \mathbb{N}}_{i=0}^\infty\) such that \(\forall i \geq 0\) we
+  have \(h \circ f_2^{k_i^{q_0}} \circ g = f_1^i\).
+\end{definition}
+\end{solution}
+
+\end{document}
