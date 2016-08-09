@@ -3,8 +3,8 @@ CHAPTER=01
 SECTION=1.1
 SHOW=evince
 BUILD=pdflatex
-TEXMFHOME=/home/eric/texmf/tex/latex
-DEPS=$(TEXMFHOME)/books/taocp/taocp.sty $(TEXMFHOME)/common/math/MathematicsWorkbook.sty
+INCLUDEDIR=.
+DEPS=$(INCLUDEDIR)/taocp.sty $(INCLUDEDIR)/MathematicsWorkbook.sty
 
 BOOKCH=$(BOOK)_ch$(CHAPTER)
 BOOKSEC=$(BOOK)_$(SECTION)
